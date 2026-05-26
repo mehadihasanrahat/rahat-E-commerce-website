@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>LuxeWear – Premium Fashion Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rose:#e11d48;--rose-light:#fff1f2;--rose-dark:#9f1239;
+  --dark:#0f0f0f;--mid:#1a1a1a;--text:#374151;--muted:#6b7280;
+  --border:#e5e7eb;--white:#fff;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--text);background:var(--white)}
+
+/* ── Utility ── */
+.container{max-width:1280px;margin:0 auto;padding:0 1.5rem}
+.btn-primary{display:inline-block;background:var(--dark);color:#fff;padding:.75rem 2rem;border-radius:0;font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:2px solid var(--dark);cursor:pointer;transition:all .3s}
+.btn-primary:hover{background:transparent;color:var(--dark)}
+.btn-outline{display:inline-block;background:transparent;color:var(--dark);padding:.75rem 2rem;border-radius:0;font-size:.85rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:2px solid var(--dark);cursor:pointer;transition:all .3s}
+.btn-outline:hover{background:var(--dark);color:#fff}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,3rem);font-weight:700;line-height:1.2;color:var(--dark)}
+.section-sub{color:var(--muted);font-size:.95rem;margin-top:.75rem;max-width:520px}
+
+/* ── Announcement ── */
+.announcement{background:var(--dark);color:#fff;text-align:center;padding:.6rem 1rem;font-size:.8rem;letter-spacing:.05em}
+.announcement a{color:var(--rose);text-decoration:none;margin-left:.5rem}
+
+/* ── Navbar ── */
+nav{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.5rem;max-width:1280px;margin:0 auto}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--dark);text-decoration:none;letter-spacing:-.02em}
+.nav-logo span{color:var(--rose)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--text);font-size:.875rem;font-weight:500;letter-spacing:.03em;transition:color .2s;text-transform:uppercase}
+.nav-links a:hover{color:var(--rose)}
+.nav-actions{display:flex;align-items:center;gap:1.25rem}
+.nav-icon{background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--dark);position:relative}
+.cart-count{position:absolute;top:-6px;right:-6px;background:var(--rose);color:#fff;border-radius:50%;width:16px;height:16px;font-size:.6rem;display:flex;align-items:center;justify-content:center;font-weight:700}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dark);transition:all .3s}
+
+/* ── Hero ── */
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:90vh;overflow:hidden}
+.hero-content{display:flex;flex-direction:column;justify-content:center;padding:5rem 4rem 5rem 2rem;max-width:640px;margin-left:auto}
+.hero-tag{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--rose);font-weight:600;margin-bottom:1.5rem;display:flex;align-items:center;gap:.5rem}
+.hero-tag::before{content:'';display:block;width:2rem;height:1px;background:var(--rose)}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,5vw,4.5rem);font-weight:900;line-height:1.05;color:var(--dark);margin-bottom:1.5rem}
+.hero-title span{color:var(--rose);font-style:italic}
+.hero-desc{color:var(--muted);line-height:1.8;font-size:1rem;margin-bottom:2.5rem;max-width:420px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;padding-top:2rem;border-top:1px solid var(--border)}
+.hero-stat strong{display:block;font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:700;color:var(--dark)}
+.hero-stat span{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.hero-image{background:linear-gradient(135deg,#fdf2f8,#fce7f3);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.hero-image-bg{width:80%;height:80%;background:linear-gradient(135deg,#f9a8d4,#ec4899,#be185d);border-radius:50% 50% 0 50%;display:flex;align-items:center;justify-content:center;font-size:8rem;animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-20px) rotate(3deg)}}
+.hero-badge{position:absolute;bottom:2rem;left:2rem;background:#fff;padding:1rem 1.5rem;border-radius:1rem;box-shadow:0 10px 40px rgba(0,0,0,.15)}
+.hero-badge p{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.hero-badge strong{font-size:1.1rem;color:var(--dark);font-weight:700}
+
+/* ── Categories ── */
+.categories{padding:5rem 0;background:#fafafa}
+.categories-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.cat-card{background:#fff;border:1px solid var(--border);padding:2rem 1.5rem;text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;text-decoration:none;color:inherit;display:block}
+.cat-card::after{content:'';position:absolute;inset:0;background:var(--rose);opacity:0;transition:opacity .3s}
+.cat-card:hover::after{opacity:.05}
+.cat-card:hover{border-color:var(--rose);transform:translateY(-4px);box-shadow:0 20px 40px rgba(225,29,72,.1)}
+.cat-icon{font-size:3rem;margin-bottom:1rem;display:block}
+.cat-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--dark);margin-bottom:.25rem}
+.cat-count{font-size:.8rem;color:var(--muted)}
+
+/* ── Products ── */
+.products{padding:5rem 0}
+.section-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:3rem;flex-wrap:gap}
+.filter-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.filter-tab{background:none;border:1px solid var(--border);padding:.5rem 1.25rem;font-size:.8rem;font-weight:500;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;transition:all .2s;color:var(--text)}
+.filter-tab.active,.filter-tab:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.product-card{cursor:pointer;transition:all .3s}
+.product-card:hover .product-img-wrap{overflow:visible}
+.product-img-wrap{position:relative;overflow:hidden;background:#f9fafb;aspect-ratio:3/4;margin-bottom:1rem}
+.product-img-wrap img,.product-placeholder{width:100%;height:100%;object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:5rem}
+.product-placeholder{background:linear-gradient(135deg,#fdf2f8,#fce7f3);display:flex}
+.product-actions{position:absolute;bottom:0;left:0;right:0;background:rgba(15,15,15,.9);display:flex;transform:translateY(100%);transition:transform .3s;justify-content:center;gap:.5rem;padding:.75rem}
+.product-card:hover .product-actions{transform:translateY(0)}
+.product-action-btn{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;padding:.4rem .8rem;font-size:.7rem;cursor:pointer;letter-spacing:.05em;text-transform:uppercase;font-weight:500;transition:all .2s}
+.product-action-btn:hover{background:#fff;color:var(--dark)}
+.product-badge{position:absolute;top:.75rem;left:.75rem;background:var(--rose);color:#fff;font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.3rem .6rem}
+.product-name{font-weight:600;font-size:.9rem;color:var(--dark);margin-bottom:.25rem}
+.product-category{font-size:.75rem;color:var(--muted);margin-bottom:.5rem}
+.product-price{display:flex;align-items:center;gap:.75rem}
+.price-current{font-weight:700;font-size:1rem;color:var(--dark)}
+.price-old{text-decoration:line-through;color:var(--muted);font-size:.85rem}
+.product-stars{color:#f59e0b;font-size:.75rem;margin-top:.35rem}
+
+/* ── Banner ── */
+.banner{margin:5rem 0;background:linear-gradient(135deg,var(--dark) 0%,#1e0010 100%);color:#fff;padding:5rem;display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;position:relative;overflow:hidden}
+.banner::before{content:'';position:absolute;right:-100px;top:-100px;width:400px;height:400px;border-radius:50%;background:var(--rose);opacity:.1}
+.banner::after{content:'';position:absolute;right:100px;bottom:-150px;width:300px;height:300px;border-radius:50%;background:var(--rose);opacity:.08}
+.banner-tag{font-size:.7rem;letter-spacing:.25em;text-transform:uppercase;color:var(--rose);margin-bottom:1rem;font-weight:600}
+.banner-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:900;line-height:1.1;margin-bottom:1.5rem}
+.banner-title em{color:var(--rose);font-style:italic}
+.banner-desc{color:rgba(255,255,255,.7);line-height:1.8;margin-bottom:2rem;font-size:.95rem}
+.banner-visual{display:flex;align-items:center;justify-content:center;font-size:10rem;animation:float 6s ease-in-out infinite reverse}
+.countdown{display:flex;gap:1.5rem;margin-top:2rem}
+.countdown-item{text-align:center}
+.countdown-num{font-family:'Playfair Display',serif;font-size:2.5rem;font-weight:900;display:block;color:#fff}
+.countdown-label{font-size:.65rem;text-transform:uppercase;letter-spacing:.15em;color:rgba(255,255,255,.5)}
+
+/* ── Testimonials ── */
+.testimonials{padding:5rem 0;background:#fafafa}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.testi-card{background:#fff;padding:2rem;border:1px solid var(--border)}
+.testi-stars{color:#f59e0b;font-size:.9rem;margin-bottom:1rem}
+.testi-text{font-size:.9rem;line-height:1.8;color:var(--text);font-style:italic;margin-bottom:1.5rem}
+.testi-author{display:flex;align-items:center;gap.75rem;gap:.75rem}
+.testi-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--rose),#f9a8d4);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.testi-name{font-weight:600;font-size:.85rem;color:var(--dark)}
+.testi-role{font-size:.75rem;color:var(--muted)}
+
+/* ── Newsletter ── */
+.newsletter{padding:5rem 0;text-align:center}
+.newsletter-box{max-width:560px;margin:0 auto}
+.newsletter-form{display:flex;margin-top:2rem;border:2px solid var(--dark);overflow:hidden}
+.newsletter-input{flex:1;padding:1rem 1.25rem;border:none;outline:none;font-size:.9rem;font-family:inherit}
+.newsletter-btn{background:var(--dark);color:#fff;padding:1rem 1.75rem;border:none;cursor:pointer;font-weight:600;font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;transition:background .2s}
+.newsletter-btn:hover{background:var(--rose)}
+
+/* ── Footer ── */
+footer{background:var(--dark);color:#fff;padding:4rem 0 2rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;margin-bottom:1rem;color:#fff}
+.footer-brand span{color:var(--rose)}
+.footer-desc{color:rgba(255,255,255,.5);font-size:.875rem;line-height:1.8}
+.footer-heading{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:1.25rem}
+.footer-links{list-style:none}
+.footer-links li{margin-bottom:.6rem}
+.footer-links a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.875rem;transition:color .2s}
+.footer-links a:hover{color:#fff}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-copy{font-size:.8rem;color:rgba(255,255,255,.4)}
+.socials{display:flex;gap:.75rem}
+.social-btn{width:38px;height:38px;border:1px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;cursor:pointer;transition:all .2s;text-decoration:none;color:#fff}
+.social-btn:hover{background:var(--rose);border-color:var(--rose)}
+
+/* ── Cart Drawer ── */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;opacity:0;pointer-events:none;transition:opacity .3s}
+.cart-overlay.open{opacity:1;pointer-events:all}
+.cart-drawer{position:fixed;top:0;right:0;width:420px;max-width:100vw;height:100vh;background:#fff;z-index:201;transform:translateX(100%);transition:transform .3s ease;display:flex;flex-direction:column}
+.cart-drawer.open{transform:translateX(0)}
+.cart-header{padding:1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cart-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--dark)}
+.cart-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted)}
+.cart-items{flex:1;overflow-y:auto;padding:1.5rem}
+.cart-item{display:flex;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--border)}
+.cart-item-img{width:80px;height:100px;background:linear-gradient(135deg,#fdf2f8,#fce7f3);display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0}
+.cart-item-details{flex:1}
+.cart-item-name{font-weight:600;font-size:.875rem;color:var(--dark);margin-bottom:.25rem}
+.cart-item-size{font-size:.75rem;color:var(--muted);margin-bottom:.5rem}
+.cart-item-price{font-weight:700;color:var(--dark);font-size:.9rem}
+.cart-item-qty{display:flex;align-items:center;gap:.5rem;margin-top:.5rem}
+.qty-btn{width:24px;height:24px;border:1px solid var(--border);background:none;cursor:pointer;font-size:.9rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.qty-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.qty-val{font-size:.875rem;font-weight:600;min-width:1rem;text-align:center}
+.cart-footer{padding:1.5rem;border-top:1px solid var(--border)}
+.cart-subtotal{display:flex;justify-content:space-between;margin-bottom:1.25rem;font-weight:600}
+.cart-subtotal span:last-child{font-size:1.1rem}
+.cart-checkout-btn{display:block;width:100%;background:var(--dark);color:#fff;padding:1rem;text-align:center;border:none;cursor:pointer;font-weight:600;font-size:.875rem;letter-spacing:.08em;text-transform:uppercase;transition:background .2s}
+.cart-checkout-btn:hover{background:var(--rose)}
+.empty-cart{text-align:center;padding:3rem;color:var(--muted);font-size:.9rem}
+.empty-cart span{font-size:3rem;display:block;margin-bottom:1rem}
+
+/* ── Toast ── */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--dark);color:#fff;padding:1rem 1.5rem;border-radius:.5rem;z-index:300;transform:translateY(100px);opacity:0;transition:all .3s;font-size:.875rem;display:flex;align-items:center;gap:.5rem;max-width:320px}
+.toast.show{transform:translateY(0);opacity:1}
+.toast-icon{color:var(--rose);font-size:1rem}
+
+/* ── Responsive ── */
+@media(max-width:1024px){
+  .products-grid{grid-template-columns:repeat(3,1fr)}
+  .categories-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .hero{grid-template-columns:1fr}
+  .hero-image{height:50vh}
+  .hero-content{padding:4rem 2rem;max-width:none}
+  .banner{grid-template-columns:1fr;padding:3rem}
+  .banner-visual{font-size:6rem}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .testi-grid{grid-template-columns:1fr}
+  .section-header{flex-direction:column;align-items:flex-start}
+  .footer-grid{grid-template-columns:1fr}
+  .newsletter-form{flex-direction:column}
+  .newsletter-input,.newsletter-btn{width:100%}
+}
+@media(max-width:480px){
+  .products-grid{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column}
+  .hero-stats{flex-wrap:wrap;gap:1.5rem}
+  .countdown{gap:1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- Announcement -->
+<div class="announcement">
+  ✨ Free Shipping on orders over $150 &amp; Free Returns
+  <a href="#">Shop Now</a>
+</div>
+
+<!-- Navbar -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">Luxe<span>Wear</span></a>
+    <ul class="nav-links">
+      <li><a href="#">New In</a></li>
+      <li><a href="#">Women</a></li>
+      <li><a href="#">Men</a></li>
+      <li><a href="#">Collections</a></li>
+      <li><a href="#">Sale</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon">🔍</button>
+      <button class="nav-icon">♡</button>
+      <button class="nav-icon" id="cartBtn">
+        🛍️
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="hamburger" id="menuBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">Summer Collection 2025</div>
+    <h1 class="hero-title">Wear Your<br/><span>Story</span> With<br/>Confidence</h1>
+    <p class="hero-desc">Discover handpicked luxury fashion pieces curated from the world's finest designers. Express your unique identity through style.</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn-primary">Shop Collection</a>
+      <a href="#" class="btn-outline">Lookbook</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>12K+</strong><span>Products</span></div>
+      <div class="hero-stat"><strong>98%</strong><span>Satisfaction</span></div>
+      <div class="hero-stat"><strong>150+</strong><span>Brands</span></div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-image-bg">👗</div>
+    <div class="hero-badge">
+      <p>New Arrivals</p>
+      <strong>Summer 2025 ✨</strong>
+    </div>
+  </div>
+</section>
+
+<!-- Categories -->
+<section class="categories">
+  <div class="container">
+    <div style="text-align:center">
+      <h2 class="section-title">Shop by Category</h2>
+      <p class="section-sub" style="margin:0 auto">Find exactly what you're looking for from our curated collections</p>
+    </div>
+    <div class="categories-grid">
+      <a href="#" class="cat-card"><span class="cat-icon">👗</span><div class="cat-name">Dresses</div><div class="cat-count">324 items</div></a>
+      <a href="#" class="cat-card"><span class="cat-icon">👔</span><div class="cat-name">Shirts</div><div class="cat-count">215 items</div></a>
+      <a href="#" class="cat-card"><span class="cat-icon">👟</span><div class="cat-name">Footwear</div><div class="cat-count">189 items</div></a>
+      <a href="#" class="cat-card"><span class="cat-icon">👜</span><div class="cat-name">Bags</div><div class="cat-count">97 items</div></a>
+    </div>
+  </div>
+</section>
+
+<!-- Products -->
+<section class="products" id="products">
+  <div class="container">
+    <div class="section-header">
+      <div><h2 class="section-title">New Arrivals</h2><p class="section-sub">Fresh styles added weekly from top designers</p></div>
+      <a href="#" class="btn-outline">View All</a>
+    </div>
+    <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterProducts('all',this)">All</button>
+      <button class="filter-tab" onclick="filterProducts('women',this)">Women</button>
+      <button class="filter-tab" onclick="filterProducts('men',this)">Men</button>
+      <button class="filter-tab" onclick="filterProducts('sale',this)">Sale</button>
+    </div>
+    <div class="products-grid" id="productsGrid">
+      <!-- Products injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- Banner -->
+<section class="banner container" style="margin-bottom:5rem">
+  <div>
+    <div class="banner-tag">Limited Time Offer</div>
+    <h2 class="banner-title">Up to <em>60% Off</em><br/>Season Sale</h2>
+    <p class="banner-desc">Don't miss our biggest sale of the year. Exclusive discounts on premium fashion from the world's most coveted brands.</p>
+    <a href="#" class="btn-primary" style="background:var(--rose);border-color:var(--rose)">Shop the Sale</a>
+    <div class="countdown" id="countdown">
+      <div class="countdown-item"><span class="countdown-num" id="hours">12</span><span class="countdown-label">Hours</span></div>
+      <div class="countdown-item"><span class="countdown-num" id="mins">45</span><span class="countdown-label">Minutes</span></div>
+      <div class="countdown-item"><span class="countdown-num" id="secs">30</span><span class="countdown-label">Seconds</span></div>
+    </div>
+  </div>
+  <div class="banner-visual">🛍️</div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <div class="container">
+    <div style="text-align:center"><h2 class="section-title">What Our Customers Say</h2></div>
+    <div class="testi-grid">
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Absolutely love LuxeWear! The quality of the fabric is exceptional and the fit is perfect. I've been shopping here for 2 years and every piece is stunning."</p><div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Sophie Laurent</div><div class="testi-role">Fashion Blogger • Paris</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"Fast shipping, gorgeous packaging and the clothes are even better in person. LuxeWear has become my go-to for all special occasions. Highly recommended!"</p><div class="testi-author"><div class="testi-avatar">👩‍🦰</div><div><div class="testi-name">Emma Williams</div><div class="testi-role">Verified Buyer • London</div></div></div></div>
+      <div class="testi-card"><div class="testi-stars">★★★★★</div><p class="testi-text">"The curation is impeccable. Every season they bring something fresh and exciting. Customer service is top-notch too — they helped me find the perfect size!"</p><div class="testi-author"><div class="testi-avatar">👩‍🦱</div><div><div class="testi-name">Aria Chen</div><div class="testi-role">Style Influencer • NYC</div></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter -->
+<section class="newsletter">
+  <div class="container">
+    <div class="newsletter-box">
+      <h2 class="section-title">Stay in Style</h2>
+      <p class="section-sub" style="margin:0 auto;text-align:center;max-width:400px">Subscribe to get early access to new collections, exclusive offers and style tips.</p>
+      <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+        <input class="newsletter-input" type="email" placeholder="Your email address" required/>
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Luxe<span>Wear</span></div>
+        <p class="footer-desc">Premium fashion for those who appreciate quality, style and craftsmanship. Discover the art of dressing well.</p>
+        <div class="socials" style="margin-top:1.5rem">
+          <a class="social-btn" href="#">📘</a>
+          <a class="social-btn" href="#">📸</a>
+          <a class="social-btn" href="#">🐦</a>
+          <a class="social-btn" href="#">▶️</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-heading">Shop</div>
+        <ul class="footer-links">
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">Women</a></li>
+          <li><a href="#">Men</a></li>
+          <li><a href="#">Collections</a></li>
+          <li><a href="#">Sale</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Help</div>
+        <ul class="footer-links">
+          <li><a href="#">Size Guide</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-heading">Company</div>
+        <ul class="footer-links">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 LuxeWear. All rights reserved.</div>
+      <div style="display:flex;gap:1rem;font-size:1.5rem">💳 🔒 🛡️</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Cart Drawer -->
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cartDrawer">
+  <div class="cart-header">
+    <div class="cart-title">Shopping Bag</div>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer" id="cartFooter" style="display:none">
+    <div class="cart-subtotal"><span>Subtotal</span><span id="cartTotal">$0.00</span></div>
+    <button class="cart-checkout-btn">Proceed to Checkout →</button>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span class="toast-icon">✓</span><span id="toastMsg"></span></div>
+
+<script>
+const products=[
+  {id:1,name:"Floral Midi Dress",category:"women",badge:"New",price:189,old:null,icon:"👗",stars:5},
+  {id:2,name:"Classic Blazer",category:"men",badge:"Bestseller",price:245,old:null,icon:"🧥",stars:4},
+  {id:3,name:"Silk Evening Gown",category:"women",badge:"Sale",price:320,old:480,icon:"👘",stars:5},
+  {id:4,name:"Leather Oxford Shoes",category:"men",badge:null,price:175,old:null,icon:"👞",stars:4},
+  {id:5,name:"Cashmere Sweater",category:"women",badge:"New",price:295,old:null,icon:"🧶",stars:5},
+  {id:6,name:"Denim Jacket",category:"men",badge:"Sale",price:145,old:220,icon:"🧢",stars:4},
+  {id:7,name:"Pleated Trousers",category:"women",badge:null,price:165,old:null,icon:"👚",stars:4},
+  {id:8,name:"Premium Handbag",category:"women",badge:"Luxury",price:520,old:null,icon:"👜",stars:5},
+];
+
+let cart=[];
+let currentFilter='all';
+
+function renderProducts(filter){
+  const grid=document.getElementById('productsGrid');
+  const filtered=filter==='all'?products:products.filter(p=>p.category===filter||(filter==='sale'&&p.old));
+  grid.innerHTML=filtered.map(p=>`
+    <div class="product-card" data-id="${p.id}">
+      <div class="product-img-wrap">
+        <div class="product-placeholder">${p.icon}</div>
+        ${p.badge?`<div class="product-badge">${p.badge}</div>`:''}
+        <div class="product-actions">
+          <button class="product-action-btn" onclick="addToCart(${p.id})">Add to Cart</button>
+          <button class="product-action-btn">♡</button>
+        </div>
+      </div>
+      <div class="product-name">${p.name}</div>
+      <div class="product-category">${p.category.charAt(0).toUpperCase()+p.category.slice(1)}</div>
+      <div class="product-price">
+        <span class="price-current">$${p.price}</span>
+        ${p.old?`<span class="price-old">$${p.old}</span>`:''}
+      </div>
+      <div class="product-stars">${'★'.repeat(p.stars)}${'☆'.repeat(5-p.stars)}</div>
+    </div>
+  `).join('');
+}
+
+function filterProducts(filter,btn){
+  currentFilter=filter;
+  document.querySelectorAll('.filter-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(filter);
+}
+
+function addToCart(id){
+  const p=products.find(x=>x.id===id);
+  const existing=cart.find(x=>x.id===id);
+  if(existing){existing.qty++;}else{cart.push({...p,qty:1});}
+  updateCartUI();
+  showToast(`${p.name} added to bag`);
+  openCart();
+}
+
+function updateCartUI(){
+  const count=cart.reduce((a,b)=>a+b.qty,0);
+  document.getElementById('cartCount').textContent=count;
+  const items=document.getElementById('cartItems');
+  const footer=document.getElementById('cartFooter');
+  if(cart.length===0){
+    items.innerHTML='<div class="empty-cart"><span>🛍️</span>Your bag is empty</div>';
+    footer.style.display='none';
+  }else{
+    items.innerHTML=cart.map(item=>`
+      <div class="cart-item">
+        <div class="cart-item-img">${item.icon}</div>
+        <div class="cart-item-details">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-size">Size: M</div>
+          <div class="cart-item-price">$${item.price}</div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
+            <span class="qty-val">${item.qty}</span>
+            <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+    const total=cart.reduce((a,b)=>a+b.price*b.qty,0);
+    document.getElementById('cartTotal').textContent='$'+total.toFixed(2);
+    footer.style.display='block';
+  }
+}
+
+function changeQty(id,delta){
+  const item=cart.find(x=>x.id===id);
+  if(item){item.qty+=delta;if(item.qty<=0)cart=cart.filter(x=>x.id!==id);}
+  updateCartUI();
+}
+
+function openCart(){document.getElementById('cartOverlay').classList.add('open');document.getElementById('cartDrawer').classList.add('open')}
+function closeCart(){document.getElementById('cartOverlay').classList.remove('open');document.getElementById('cartDrawer').classList.remove('open')}
+document.getElementById('cartBtn').addEventListener('click',openCart);
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+function subscribeNewsletter(e){e.preventDefault();showToast('Thank you for subscribing!');e.target.reset()}
+
+// Countdown Timer
+function startCountdown(){
+  let total=12*3600+45*60+30;
+  setInterval(()=>{
+    total--;if(total<0)total=0;
+    const h=Math.floor(total/3600),m=Math.floor((total%3600)/60),s=total%60;
+    document.getElementById('hours').textContent=String(h).padStart(2,'0');
+    document.getElementById('mins').textContent=String(m).padStart(2,'0');
+    document.getElementById('secs').textContent=String(s).padStart(2,'0');
+  },1000);
+}
+
+renderProducts('all');
+updateCartUI();
+startCountdown();
+</script>
+</body>
+</html>
